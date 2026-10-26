@@ -9,7 +9,7 @@
     <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <script>
         tailwind.config = {
             darkMode: 'class',
@@ -23,91 +23,48 @@
                         },
                         neon: {
                             cyan: '#06b6d4',
-                            violet: '#8b5cf6',
                             emerald: '#10b981',
+                            purple: '#a855f7',
                             pink: '#ec4899',
                         }
                     },
                     fontFamily: {
                         sans: ['Plus Jakarta Sans', 'sans-serif'],
-                        mono: ['Fira Code', 'monospace'],
                     }
                 }
             }
         }
     </script>
     <style>
-        body {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            background-color: #090d16;
-            color: #f1f5f9;
-            overflow-x: hidden;
-        }
-
-        /* Glassmorphism Styles */
         .glass-panel {
-            background: rgba(15, 23, 42, 0.65);
+            background: rgba(15, 23, 42, 0.75);
             backdrop-filter: blur(16px);
             -webkit-backdrop-filter: blur(16px);
             border: 1px solid rgba(255, 255, 255, 0.08);
         }
-
         .glass-card {
             background: rgba(30, 41, 59, 0.4);
             backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.07);
+            border: 1px solid rgba(255, 255, 255, 0.05);
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
-
         .glass-card:hover {
             border-color: rgba(6, 182, 212, 0.4);
             transform: translateY(-4px);
             box-shadow: 0 12px 30px -10px rgba(6, 182, 212, 0.15);
         }
-
-        .glass-modal {
-            background: rgba(11, 17, 32, 0.85);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.12);
+        .glow-cyan {
+            box-shadow: 0 0 25px -5px rgba(6, 182, 212, 0.5);
         }
-
-        /* Ambient Background Glows */
-        .bg-glow-1 {
-            position: absolute;
-            top: -10%;
-            left: -10%;
-            width: 45vw;
-            height: 45vw;
-            background: radial-gradient(circle, rgba(139, 92, 246, 0.15) 0%, rgba(0, 0, 0, 0) 70%);
-            z-index: -1;
-            pointer-events: none;
+        .glow-green {
+            box-shadow: 0 0 25px -5px rgba(16, 185, 129, 0.5);
         }
-
-        .bg-glow-2 {
-            position: absolute;
-            top: 40%;
-            right: -10%;
-            width: 50vw;
-            height: 50vw;
-            background: radial-gradient(circle, rgba(6, 182, 212, 0.12) 0%, rgba(0, 0, 0, 0) 70%);
-            z-index: -1;
-            pointer-events: none;
-        }
-
-        /* Canvas Style */
-        #snakeCanvas {
-            box-shadow: 0 0 25px rgba(6, 182, 212, 0.2);
-            background: #080d1a;
-        }
-
-        /* Custom Scrollbar */
+        /* Custom scrollbar */
         ::-webkit-scrollbar {
             width: 8px;
         }
         ::-webkit-scrollbar-track {
-            background: #090d16;
+            background: #030712;
         }
         ::-webkit-scrollbar-thumb {
             background: #1e293b;
@@ -118,1044 +75,520 @@
         }
     </style>
 </head>
-<body class="min-h-screen flex flex-col justify-between selection:bg-cyan-500 selection:text-black">
+<body class="bg-slate-950 text-slate-100 font-sans antialiased min-h-screen flex flex-col selection:bg-cyan-500 selection:text-white">
 
-    <!-- Ambient background lights -->
-    <div class="bg-glow-1"></div>
-    <div class="bg-glow-2"></div>
-
-    <!-- Navigation Header -->
+    <!-- Top Navigation Header -->
     <header class="sticky top-0 z-40 glass-panel border-b border-slate-800/80">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-            <div class="flex items-center space-x-3">
-                <!-- SVG Gradient Logo Badge -->
-                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-cyan-500 to-violet-600 flex items-center justify-center text-white font-bold text-xl shadow-lg shadow-cyan-500/20">
-                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
-                    </svg>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <!-- Brand Logo -->
+            <div class="flex items-center space-x-3 cursor-pointer" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+                <div class="w-11 h-11 rounded-xl bg-gradient-to-tr from-cyan-600 via-indigo-600 to-purple-600 p-[2px] glow-cyan">
+                    <div class="w-full h-full bg-slate-950 rounded-[10px] flex items-center justify-center">
+                        <svg class="w-6 h-6 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                        </svg>
+                    </div>
                 </div>
-                <div class="flex items-center">
-                    <span class="text-xl font-extrabold tracking-tight bg-gradient-to-r from-white via-slate-100 to-slate-300 bg-clip-text text-transparent">
-                        LASHA<span class="text-cyan-400">HUB</span>
-                    </span>
-                    <span class="hidden sm:inline-block ml-2 text-xs px-2 py-0.5 rounded-full bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 font-mono">v2.4</span>
+                <div>
+                    <span class="text-xl font-extrabold tracking-wider text-white">LASHA<span class="text-cyan-400">HUB</span></span>
+                    <span class="text-[10px] block font-semibold text-slate-400 tracking-widest uppercase">Developer Studio</span>
                 </div>
             </div>
 
-            <nav class="hidden md:flex items-center space-x-8 text-sm font-medium text-slate-300">
-                <a href="#hero" class="hover:text-cyan-400 transition-colors">Overview</a>
-                <a href="#apps" class="hover:text-cyan-400 transition-colors">App Directory</a>
-                <a href="#features" class="hover:text-cyan-400 transition-colors">Tech Specs</a>
-                <a href="#contact" class="hover:text-cyan-400 transition-colors">Feedback</a>
+            <!-- Navigation Links -->
+            <nav class="hidden md:flex items-center space-x-8">
+                <a href="#overview" class="text-sm font-medium text-slate-300 hover:text-cyan-400 transition-colors">Overview</a>
+                <a href="#directory" class="text-sm font-medium text-slate-300 hover:text-cyan-400 transition-colors">App Directory</a>
+                <a href="#tech" class="text-sm font-medium text-slate-300 hover:text-cyan-400 transition-colors">Tech Specs</a>
+                <a href="#contact" class="text-sm font-medium text-slate-300 hover:text-cyan-400 transition-colors">Feedback</a>
             </nav>
 
+            <!-- Action Quick Link -->
             <div class="flex items-center space-x-4">
-                <a href="https://github.com" target="_blank" class="p-2 text-slate-400 hover:text-white transition-colors" title="GitHub Repository">
-                    <i class="fa-brands fa-github text-xl"></i>
+                <a href="https://github.com/lasharahettiarachchi-creator" target="_blank" class="p-2.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition-colors">
+                    <i class="fab fa-github text-xl"></i>
                 </a>
-                <a href="#apps" class="hidden sm:inline-flex items-center justify-center px-4 py-2 text-xs font-semibold rounded-lg bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-slate-950 font-bold transition-all shadow-md shadow-cyan-500/20">
-                    Explore Apps
+                <a href="#directory" class="hidden sm:inline-flex items-center space-x-2 px-4 py-2 rounded-xl bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 hover:bg-cyan-500/20 font-semibold text-sm transition-all">
+                    <span>Explore Apps</span>
+                    <i class="fas fa-arrow-right text-xs"></i>
                 </a>
             </div>
         </div>
     </header>
 
-    <main class="flex-grow">
-        <!-- Hero Section -->
-        <section id="hero" class="relative py-20 lg:py-28 overflow-hidden">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
-                <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full glass-panel text-xs font-medium text-cyan-300 border border-cyan-500/30 mb-8 animate-pulse">
-                    <span class="w-2 h-2 rounded-full bg-cyan-400"></span>
-                    Lasha's Personal App Ecosystem & Digital Playground
+    <!-- Hero Section -->
+    <section id="overview" class="relative pt-12 pb-20 overflow-hidden">
+        <!-- Glowing background blobs -->
+        <div class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] bg-cyan-600/15 rounded-full blur-[120px] pointer-events-none"></div>
+        <div class="absolute top-1/3 left-1/3 w-[400px] h-[250px] bg-purple-600/15 rounded-full blur-[100px] pointer-events-none"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+            <div class="inline-flex items-center space-x-2 px-3 py-1.5 rounded-full bg-slate-900/80 border border-cyan-500/30 text-cyan-400 text-xs font-semibold mb-6 backdrop-blur-md">
+                <span class="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span>
+                <span>Lasha Developer Portfolio & Hub</span>
+            </div>
+            
+            <h1 class="text-4xl sm:text-6xl font-black text-white tracking-tight max-w-4xl mx-auto leading-tight">
+                Crafting Desktop Utilities & <span class="bg-gradient-to-r from-cyan-400 via-indigo-400 to-purple-400 bg-clip-text text-transparent">Interactive Web Experiences</span>
+            </h1>
+            
+            <p class="mt-6 text-lg sm:text-xl text-slate-400 max-w-2xl mx-auto font-normal">
+                Explore custom desktop executables, productivity timers, voice tools, and live web apps engineered by Lashara.
+            </p>
+
+            <!-- Search & Quick Filter Bar -->
+            <div class="mt-10 max-w-2xl mx-auto">
+                <div class="relative flex items-center">
+                    <i class="fas fa-search absolute left-4 text-slate-500 text-lg"></i>
+                    <input type="text" id="searchInput" onkeyup="filterApps()" placeholder="Search apps by name, tag, or description..." class="w-full pl-12 pr-4 py-4 rounded-2xl bg-slate-900/90 border border-slate-800 text-slate-100 placeholder-slate-500 focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 transition-all text-sm sm:text-base glass-panel">
                 </div>
+            </div>
+        </div>
+    </section>
 
-                <h1 class="text-4xl sm:text-6xl lg:text-7xl font-black tracking-tight text-white mb-6 leading-tight">
-                    Custom Web & Desktop Apps <br class="hidden sm:inline"/>
-                    Built by <span class="bg-gradient-to-r from-cyan-400 via-violet-400 to-emerald-400 bg-clip-text text-transparent">Lasha</span>
-                </h1>
+    <!-- Main Content App Directory -->
+    <main id="directory" class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        
+        <!-- Category Selector -->
+        <div class="flex flex-wrap items-center justify-between gap-4 mb-8 border-b border-slate-800/80 pb-6">
+            <div class="flex items-center space-x-2 overflow-x-auto pb-2 sm:pb-0">
+                <button onclick="setCategory('all')" class="cat-btn active px-4 py-2 rounded-xl text-sm font-semibold transition-all bg-cyan-500 text-slate-950">All Projects</button>
+                <button onclick="setCategory('utility')" class="cat-btn px-4 py-2 rounded-xl text-sm font-semibold text-slate-400 hover:text-white hover:bg-slate-800 transition-all">Productivity & Utilities</button>
+                <button onclick="setCategory('game')" class="cat-btn px-4 py-2 rounded-xl text-sm font-semibold text-slate-400 hover:text-white hover:bg-slate-800 transition-all">Games & Arcade</button>
+                <button onclick="setCategory('web')" class="cat-btn px-4 py-2 rounded-xl text-sm font-semibold text-slate-400 hover:text-white hover:bg-slate-800 transition-all">Web Applications</button>
+            </div>
+            <div class="text-xs text-slate-500 font-mono">
+                Showing <span id="appCount" class="text-cyan-400 font-bold">4</span> Custom Build(s)
+            </div>
+        </div>
 
-                <p class="max-w-2xl mx-auto text-base sm:text-lg text-slate-400 mb-10 leading-relaxed">
-                    Lightweight productivity tools like Focus Guardian and high-fps retro arcade experiences. Engineered for clean code, zero bloatware, and instant downloads.
-                </p>
-
-                <!-- Hero CTA Buttons -->
-                <div class="flex flex-col sm:flex-row items-center justify-center gap-4 max-w-md mx-auto">
-                    <button onclick="openFocusModal()" class="w-full sm:w-auto px-6 py-3.5 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-slate-950 font-bold text-sm transition-all shadow-lg shadow-cyan-500/25 flex items-center justify-center gap-2">
-                        <i class="fa-solid fa-stopwatch text-base"></i>
-                        Launch Focus App
+        <!-- App Grid -->
+        <div id="appGrid" class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            
+            <!-- APP CARD 1: Focus Guardian Timer -->
+            <div class="app-card glass-card rounded-2xl p-6 sm:p-8 flex flex-col justify-between" data-category="utility" data-name="Focus Guardian Desktop Pomodoro Timer">
+                <div>
+                    <div class="flex items-start justify-between mb-4">
+                        <div class="w-14 h-14 rounded-2xl bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center text-cyan-400 text-2xl">
+                            <i class="fas fa-hourglass-half"></i>
+                        </div>
+                        <div class="flex space-x-2">
+                            <span class="px-2.5 py-1 rounded-md bg-slate-800 text-cyan-400 text-xs font-mono border border-slate-700">Desktop Tool</span>
+                            <span class="px-2.5 py-1 rounded-md bg-slate-800 text-slate-300 text-xs font-mono border border-slate-700">v2.5.0</span>
+                        </div>
+                    </div>
+                    <h3 class="text-2xl font-bold text-white mb-2">Focus Guardian</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed mb-6">
+                        Minimalist desktop Pomodoro focus timer configured with 15-minute deep focus intervals, repeating short breaks (4x), 30-minute extended breaks, ambient sound generator, and persistent state saving.
+                    </p>
+                    <ul class="space-y-2 mb-6 text-xs text-slate-300">
+                        <li class="flex items-center space-x-2"><i class="fas fa-check text-cyan-400"></i><span>15-min deep focus intervals with repeating breaks</span></li>
+                        <li class="flex items-center space-x-2"><i class="fas fa-check text-cyan-400"></i><span>Ambient noise generator & audio cues</span></li>
+                        <li class="flex items-center space-x-2"><i class="fas fa-check text-cyan-400"></i><span>Zero login required, persistent local state</span></li>
+                    </ul>
+                </div>
+                <div class="pt-4 border-t border-slate-800/60 flex items-center space-x-3">
+                    <button onclick="openFocusModal()" class="flex-1 py-3 px-4 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold text-sm transition-all flex items-center justify-center space-x-2">
+                        <i class="fas fa-play text-xs"></i>
+                        <span>Launch Web Version</span>
                     </button>
-                    <button onclick="openSnakeModal()" class="w-full sm:w-auto px-6 py-3.5 rounded-xl glass-panel hover:bg-slate-800/80 text-white font-semibold text-sm transition-all border border-slate-700/60 flex items-center justify-center gap-2">
-                        <i class="fa-solid fa-gamepad text-cyan-400"></i>
-                        Play Neon Snake
+                    <!-- DIRECT MEGA DOWNLOAD LINK FOR FOCUS GUARDIAN SETUP 2.5.0.EXE -->
+                    <a href="https://mega.nz/file/PuRRURhR#drITwRqTHazARAX9xVqcMbANwZKFdGfctmKbjLGfgLk" target="_blank" class="py-3 px-4 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold text-sm transition-all flex items-center space-x-2 border border-slate-700">
+                        <i class="fab fa-windows text-cyan-400"></i>
+                        <span>Download (.exe)</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- APP CARD 2: Neon Snake Arcade Game -->
+            <div class="app-card glass-card rounded-2xl p-6 sm:p-8 flex flex-col justify-between" data-category="game" data-name="Neon Snake Arcade Multiplayer Singleplayer Game">
+                <div>
+                    <div class="flex items-start justify-between mb-4">
+                        <div class="w-14 h-14 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400 text-2xl">
+                            <i class="fas fa-gamepad"></i>
+                        </div>
+                        <div class="flex space-x-2">
+                            <span class="px-2.5 py-1 rounded-md bg-slate-800 text-emerald-400 text-xs font-mono border border-slate-700">Web & Firebase</span>
+                            <span class="px-2.5 py-1 rounded-md bg-slate-800 text-slate-300 text-xs font-mono border border-slate-700">v2.1</span>
+                        </div>
+                    </div>
+                    <h3 class="text-2xl font-bold text-white mb-2">Neon Snake Arcade</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed mb-6">
+                        Modern retro snake game featuring real-time multiplayer room code syncing via Firebase, single-player arcade menu mode, glowing canvas bloom effects, and Web Audio retro sounds.
+                    </p>
+                    <ul class="space-y-2 mb-6 text-xs text-slate-300">
+                        <li class="flex items-center space-x-2"><i class="fas fa-check text-emerald-400"></i><span>Canvas-rendered neon bloom visual effects</span></li>
+                        <li class="flex items-center space-x-2"><i class="fas fa-check text-emerald-400"></i><span>Web Audio API synthesized retro sound effects</span></li>
+                        <li class="flex items-center space-x-2"><i class="fas fa-check text-emerald-400"></i><span>Multiplayer lobby code creation mode</span></li>
+                    </ul>
+                </div>
+                <div class="pt-4 border-t border-slate-800/60 flex items-center space-x-3">
+                    <button onclick="openSnakeModal()" class="w-full py-3 px-4 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-sm transition-all flex items-center justify-center space-x-2">
+                        <i class="fas fa-gamepad text-xs"></i>
+                        <span>Play Now</span>
                     </button>
                 </div>
+            </div>
 
-                <!-- Stats counter bar -->
-                <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 max-w-3xl mx-auto mt-16 p-4 rounded-2xl glass-panel text-center">
-                    <div>
-                        <div class="text-2xl font-bold text-white font-mono">100%</div>
-                        <div class="text-xs text-slate-400 mt-0.5">Ad-Free & Fast</div>
+            <!-- APP CARD 3: Stealth Voice Recorder Widget -->
+            <div class="app-card glass-card rounded-2xl p-6 sm:p-8 flex flex-col justify-between" data-category="utility" data-name="Stealth Voice Recorder Desktop Tray Utility">
+                <div>
+                    <div class="flex items-start justify-between mb-4">
+                        <div class="w-14 h-14 rounded-2xl bg-purple-500/10 border border-purple-500/30 flex items-center justify-center text-purple-400 text-2xl">
+                            <i class="fas fa-microphone-alt"></i>
+                        </div>
+                        <div class="flex space-x-2">
+                            <span class="px-2.5 py-1 rounded-md bg-slate-800 text-purple-400 text-xs font-mono border border-slate-700">Desktop Tool</span>
+                            <span class="px-2.5 py-1 rounded-md bg-slate-800 text-slate-300 text-xs font-mono border border-slate-700">v1.0</span>
+                        </div>
                     </div>
-                    <div>
-                        <div class="text-2xl font-bold text-cyan-400 font-mono">15m</div>
-                        <div class="text-xs text-slate-400 mt-0.5">Default Focus Sprint</div>
-                    </div>
-                    <div>
-                        <div class="text-2xl font-bold text-emerald-400 font-mono">60 FPS</div>
-                        <div class="text-xs text-slate-400 mt-0.5">Arcade Graphics</div>
-                    </div>
-                    <div>
-                        <div class="text-2xl font-bold text-violet-400 font-mono">Cross-Platform</div>
-                        <div class="text-xs text-slate-400 mt-0.5">Web & Desktop Apps</div>
-                    </div>
+                    <h3 class="text-2xl font-bold text-white mb-2">Stealth Voice Recorder Widget</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed mb-6">
+                        Minimal tray desktop widget configured with global hotkeys (<code class="text-cyan-400 bg-slate-800 px-1 py-0.5 rounded">Ctrl+Shift+R</code>) for rapid voice note capturing and automated local saving.
+                    </p>
+                    <ul class="space-y-2 mb-6 text-xs text-slate-300">
+                        <li class="flex items-center space-x-2"><i class="fas fa-check text-purple-400"></i><span>Background system tray operation with minimal RAM</span></li>
+                        <li class="flex items-center space-x-2"><i class="fas fa-check text-purple-400"></i><span>Automatic timestamped audio exports (.wav / .mp3)</span></li>
+                    </ul>
+                </div>
+                <div class="pt-4 border-t border-slate-800/60 flex items-center space-x-3">
+                    <button onclick="alert('Stealth Voice Recorder build package is synchronized with Windows desktop setup.')" class="w-full py-3 px-4 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold text-sm transition-all flex items-center justify-center space-x-2 border border-slate-700">
+                        <i class="fas fa-info-circle text-purple-400"></i>
+                        <span>View Details</span>
+                    </button>
                 </div>
             </div>
-        </section>
 
-        <!-- App Directory / Showcase Section -->
-        <section id="apps" class="py-16 bg-slate-900/50 border-t border-slate-800/50">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                
-                <div class="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-6">
-                    <div>
-                        <h2 class="text-3xl font-extrabold text-white tracking-tight">App Directory</h2>
-                        <p class="text-sm text-slate-400 mt-1">Discover, launch, and download tools created for workflow & entertainment.</p>
-                    </div>
-
-                    <!-- Search & Filter Controls -->
-                    <div class="flex flex-col sm:flex-row gap-3 items-stretch sm:items-center">
-                        <!-- Search Bar -->
-                        <div class="relative min-w-[240px]">
-                            <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-500 text-sm"></i>
-                            <input type="text" id="searchInput" placeholder="Search apps or features..." 
-                                class="w-full pl-10 pr-4 py-2 bg-slate-950/80 border border-slate-700/60 rounded-xl text-sm text-white placeholder-slate-500 focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 transition-all">
+            <!-- APP CARD 4: Business Management & POS Hub -->
+            <div class="app-card glass-card rounded-2xl p-6 sm:p-8 flex flex-col justify-between" data-category="web" data-name="Business Management POS Inventory Hub">
+                <div>
+                    <div class="flex items-start justify-between mb-4">
+                        <div class="w-14 h-14 rounded-2xl bg-pink-500/10 border border-pink-500/30 flex items-center justify-center text-pink-400 text-2xl">
+                            <i class="fas fa-cash-register"></i>
                         </div>
-
-                        <!-- Category Filters -->
-                        <div class="flex items-center gap-1 bg-slate-950/80 p-1 rounded-xl border border-slate-800 overflow-x-auto" id="categoryFilter">
-                            <button data-category="all" class="filter-btn px-3 py-1.5 text-xs font-semibold rounded-lg bg-cyan-500 text-slate-950 transition-all">All</button>
-                            <button data-category="web" class="filter-btn px-3 py-1.5 text-xs font-semibold rounded-lg text-slate-400 hover:text-white transition-all">Web Apps</button>
-                            <button data-category="desktop" class="filter-btn px-3 py-1.5 text-xs font-semibold rounded-lg text-slate-400 hover:text-white transition-all">Desktop</button>
-                            <button data-category="games" class="filter-btn px-3 py-1.5 text-xs font-semibold rounded-lg text-slate-400 hover:text-white transition-all">Games</button>
+                        <div class="flex space-x-2">
+                            <span class="px-2.5 py-1 rounded-md bg-slate-800 text-pink-400 text-xs font-mono border border-slate-700">Web Suite</span>
+                            <span class="px-2.5 py-1 rounded-md bg-slate-800 text-slate-300 text-xs font-mono border border-slate-700">v3.0</span>
                         </div>
                     </div>
+                    <h3 class="text-2xl font-bold text-white mb-2">Business Management & POS Hub</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed mb-6">
+                        Multi-branch enterprise application tailored for rental tracking, inventory management, point-of-sale checkout, and role-based operational permissions.
+                    </p>
+                    <ul class="space-y-2 mb-6 text-xs text-slate-300">
+                        <li class="flex items-center space-x-2"><i class="fas fa-check text-pink-400"></i><span>Granular Roles: Owner, Branch Manager, Cashier</span></li>
+                        <li class="flex items-center space-x-2"><i class="fas fa-check text-pink-400"></i><span>Rental stock tracking & automated penalty calculations</span></li>
+                    </ul>
                 </div>
-
-                <!-- Apps Grid -->
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="appsGrid">
-
-                    <!-- App 1: Focus Timer -->
-                    <div class="app-card glass-card rounded-2xl p-6 flex flex-col justify-between" data-category="web" data-keywords="focus timer productivity pomodoro sprint clock time sound">
-                        <div>
-                            <div class="flex items-center justify-between mb-4">
-                                <div class="w-12 h-12 rounded-xl bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center text-cyan-400 text-2xl">
-                                    <i class="fa-solid fa-hourglass-half"></i>
-                                </div>
-                                <div class="flex gap-2">
-                                    <span class="px-2.5 py-1 rounded-md bg-cyan-500/10 text-cyan-300 text-xs font-mono border border-cyan-500/20">Web App</span>
-                                    <span class="px-2.5 py-1 rounded-md bg-slate-800 text-slate-400 text-xs font-mono">v1.2</span>
-                                </div>
-                            </div>
-
-                            <h3 class="text-xl font-bold text-white mb-2">Focus Timer & Productivity Suite</h3>
-                            <p class="text-sm text-slate-400 mb-6 leading-relaxed">
-                                Customizable Pomodoro-inspired timer engineered with 15-minute focus sprints, automated short/long break loops, ambient audio toggle, and local session analytics.
-                            </p>
-
-                            <!-- Highlights -->
-                            <div class="space-y-2 mb-6">
-                                <div class="flex items-center text-xs text-slate-300">
-                                    <i class="fa-solid fa-check text-emerald-400 mr-2.5"></i> 15-min deep focus intervals with repeating breaks
-                                </div>
-                                <div class="flex items-center text-xs text-slate-300">
-                                    <i class="fa-solid fa-check text-emerald-400 mr-2.5"></i> Ambient brown noise generator & audio cues
-                                </div>
-                                <div class="flex items-center text-xs text-slate-300">
-                                    <i class="fa-solid fa-check text-emerald-400 mr-2.5"></i> Zero login required, persistent state
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="flex flex-col sm:flex-row gap-3 pt-4 border-t border-slate-800">
-                            <button onclick="openFocusModal()" class="flex-1 py-2.5 px-4 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold text-xs flex items-center justify-center gap-2 transition-all">
-                                <i class="fa-solid fa-play"></i> Launch Web App
-                            </button>
-                            <button onclick="showToast('Desktop build bundle ready in GitHub Releases!')" class="py-2.5 px-4 rounded-xl glass-panel hover:bg-slate-800 text-slate-300 font-semibold text-xs flex items-center justify-center gap-2 border border-slate-700/60 transition-all">
-                                <i class="fa-brands fa-windows text-slate-400"></i> Download (.exe)
-                            </button>
-                        </div>
-                    </div>
-
-                    <!-- App 2: Neon Snake Arcade -->
-                    <div class="app-card glass-card rounded-2xl p-6 flex flex-col justify-between" data-category="games web" data-keywords="snake game neon arcade multiplayer singleplayer score keyboard mobile">
-                        <div>
-                            <div class="flex items-center justify-between mb-4">
-                                <div class="w-12 h-12 rounded-xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400 text-2xl">
-                                    <i class="fa-solid fa-staff-snake"></i>
-                                </div>
-                                <div class="flex gap-2">
-                                    <span class="px-2.5 py-1 rounded-md bg-emerald-500/10 text-emerald-300 text-xs font-mono border border-emerald-500/20">Game</span>
-                                    <span class="px-2.5 py-1 rounded-md bg-slate-800 text-slate-400 text-xs font-mono">v2.0</span>
-                                </div>
-                            </div>
-
-                            <h3 class="text-xl font-bold text-white mb-2">Neon Snake Arcade (Solo & Rooms)</h3>
-                            <p class="text-sm text-slate-400 mb-6 leading-relaxed">
-                                High-octane cyber snake game featuring glow vector graphics, synth sound FX, responsive touchscreen + keyboard controls, and real-time multiplayer room code simulator.
-                            </p>
-
-                            <!-- Highlights -->
-                            <div class="space-y-2 mb-6">
-                                <div class="flex items-center text-xs text-slate-300">
-                                    <i class="fa-solid fa-check text-emerald-400 mr-2.5"></i> Canvas-rendered neon bloom visual effects
-                                </div>
-                                <div class="flex items-center text-xs text-slate-300">
-                                    <i class="fa-solid fa-check text-emerald-400 mr-2.5"></i> Web Audio API synthesized retro sound effects
-                                </div>
-                                <div class="flex items-center text-xs text-slate-300">
-                                    <i class="fa-solid fa-check text-emerald-400 mr-2.5"></i> Multiplayer lobby code creation mode
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="flex flex-col sm:flex-row gap-3 pt-4 border-t border-slate-800">
-                            <button onclick="openSnakeModal()" class="flex-1 py-2.5 px-4 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-xs flex items-center justify-center gap-2 transition-all">
-                                <i class="fa-solid fa-gamepad"></i> Play Now
-                            </button>
-                            <button onclick="openSnakeRoomModal()" class="py-2.5 px-4 rounded-xl glass-panel hover:bg-slate-800 text-slate-300 font-semibold text-xs flex items-center justify-center gap-2 border border-slate-700/60 transition-all">
-                                <i class="fa-solid fa-users text-cyan-400"></i> Host Room
-                            </button>
-                        </div>
-                    </div>
-
-                    <!-- App 3: Stealth Voice Recorder Widget -->
-                    <div class="app-card glass-card rounded-2xl p-6 flex flex-col justify-between" data-category="desktop" data-keywords="voice recorder stealth hotkey windows audio desktop utility widget">
-                        <div>
-                            <div class="flex items-center justify-between mb-4">
-                                <div class="w-12 h-12 rounded-xl bg-violet-500/10 border border-violet-500/30 flex items-center justify-center text-violet-400 text-2xl">
-                                    <i class="fa-solid fa-microphone-lines"></i>
-                                </div>
-                                <div class="flex gap-2">
-                                    <span class="px-2.5 py-1 rounded-md bg-violet-500/10 text-violet-300 text-xs font-mono border border-violet-500/20">Desktop Tool</span>
-                                    <span class="px-2.5 py-1 rounded-md bg-slate-800 text-slate-400 text-xs font-mono">v1.0</span>
-                                </div>
-                            </div>
-
-                            <h3 class="text-xl font-bold text-white mb-2">Stealth Voice Recorder Widget</h3>
-                            <p class="text-sm text-slate-400 mb-6 leading-relaxed">
-                                Minimal tray desktop widget configured with global hotkeys (<code class="bg-slate-900 text-violet-300 px-1.5 py-0.5 rounded text-xs font-mono">Ctrl+Shift+R</code>) for rapid voice note capturing and automated local saving.
-                            </p>
-
-                            <!-- Highlights -->
-                            <div class="space-y-2 mb-6">
-                                <div class="flex items-center text-xs text-slate-300">
-                                    <i class="fa-solid fa-check text-emerald-400 mr-2.5"></i> Background system tray operation with minimal RAM
-                                </div>
-                                <div class="flex items-center text-xs text-slate-300">
-                                    <i class="fa-solid fa-check text-emerald-400 mr-2.5"></i> Automatic timestamped audio exports (.wav / .mp3)
-                                </div>
-                                <div class="flex items-center text-xs text-slate-300">
-                                    <i class="fa-solid fa-check text-emerald-400 mr-2.5"></i> Global hotkey toggle support
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="flex flex-col sm:flex-row gap-3 pt-4 border-t border-slate-800">
-                            <button onclick="showToast('Downloading Stealth Voice Recorder setup installer...')" class="flex-1 py-2.5 px-4 rounded-xl bg-violet-600 hover:bg-violet-500 text-white font-bold text-xs flex items-center justify-center gap-2 transition-all">
-                                <i class="fa-solid fa-download"></i> Download Windows (.exe)
-                            </button>
-                            <button onclick="openDocsModal('Stealth Voice Recorder', 'Documentation: Hotkeys, settings, and audio path configuration.')" class="py-2.5 px-4 rounded-xl glass-panel hover:bg-slate-800 text-slate-300 font-semibold text-xs flex items-center justify-center gap-2 border border-slate-700/60 transition-all">
-                                <i class="fa-solid fa-book text-slate-400"></i> View Docs
-                            </button>
-                        </div>
-                    </div>
-
-                    <!-- App 4: Business Management & POS Hub -->
-                    <div class="app-card glass-card rounded-2xl p-6 flex flex-col justify-between" data-category="web" data-keywords="business management pos hub rental inventory inventory branch multi-user cashier sales">
-                        <div>
-                            <div class="flex items-center justify-between mb-4">
-                                <div class="w-12 h-12 rounded-xl bg-pink-500/10 border border-pink-500/30 flex items-center justify-center text-pink-400 text-2xl">
-                                    <i class="fa-solid fa-cash-register"></i>
-                                </div>
-                                <div class="flex gap-2">
-                                    <span class="px-2.5 py-1 rounded-md bg-pink-500/10 text-pink-300 text-xs font-mono border border-pink-500/20">Web Suite</span>
-                                    <span class="px-2.5 py-1 rounded-md bg-slate-800 text-slate-400 text-xs font-mono">v3.1</span>
-                                </div>
-                            </div>
-
-                            <h3 class="text-xl font-bold text-white mb-2">Business Management & POS Hub</h3>
-                            <p class="text-sm text-slate-400 mb-6 leading-relaxed">
-                                Multi-branch enterprise application tailored for rental tracking, inventory management, point-of-sale checkout, and role-based operational permissions.
-                            </p>
-
-                            <!-- Highlights -->
-                            <div class="space-y-2 mb-6">
-                                <div class="flex items-center text-xs text-slate-300">
-                                    <i class="fa-solid fa-check text-emerald-400 mr-2.5"></i> Granular Roles: Owner, Branch Manager, Cashier
-                                </div>
-                                <div class="flex items-center text-xs text-slate-300">
-                                    <i class="fa-solid fa-check text-emerald-400 mr-2.5"></i> Rental stock tracking & automated penalty calculations
-                                </div>
-                                <div class="flex items-center text-xs text-slate-300">
-                                    <i class="fa-solid fa-check text-emerald-400 mr-2.5"></i> Real-time inventory sync & revenue charts
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="flex flex-col sm:flex-row gap-3 pt-4 border-t border-slate-800">
-                            <button onclick="showToast('Redirecting to live POS sandbox environment...')" class="flex-1 py-2.5 px-4 rounded-xl bg-pink-600 hover:bg-pink-500 text-white font-bold text-xs flex items-center justify-center gap-2 transition-all">
-                                <i class="fa-solid fa-arrow-up-right-from-square"></i> Open Enterprise Demo
-                            </button>
-                            <button onclick="openDocsModal('Business Management Hub', 'Multi-tenant architecture details, API endpoints, and setup guidelines.')" class="py-2.5 px-4 rounded-xl glass-panel hover:bg-slate-800 text-slate-300 font-semibold text-xs flex items-center justify-center gap-2 border border-slate-700/60 transition-all">
-                                <i class="fa-solid fa-file-code text-slate-400"></i> Specs
-                            </button>
-                        </div>
-                    </div>
-
-                </div>
-
-                <!-- Empty State Search Result -->
-                <div id="noResults" class="hidden text-center py-16">
-                    <i class="fa-solid fa-folder-open text-4xl text-slate-600 mb-3"></i>
-                    <h3 class="text-lg font-semibold text-slate-300">No applications matched your search</h3>
-                    <p class="text-sm text-slate-500 mt-1">Try clearing filters or typing a different keyword.</p>
-                </div>
-
-            </div>
-        </section>
-
-        <!-- Technical Specs & Features Section -->
-        <section id="features" class="py-16 relative">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="text-center max-w-2xl mx-auto mb-12">
-                    <h2 class="text-2xl sm:text-3xl font-extrabold text-white">Engineered for Performance</h2>
-                    <p class="text-sm text-slate-400 mt-2">Every tool is crafted with careful attention to response speed, user experience, and aesthetic design.</p>
-                </div>
-
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    <div class="glass-panel p-6 rounded-2xl border border-slate-800">
-                        <div class="w-10 h-10 rounded-xl bg-cyan-500/10 text-cyan-400 flex items-center justify-center mb-4 text-xl">
-                            <i class="fa-solid fa-bolt"></i>
-                        </div>
-                        <h4 class="text-lg font-bold text-white mb-2">Zero Bloatware</h4>
-                        <p class="text-xs text-slate-400 leading-relaxed">Fast loading times, lean client-side execution, and clean state persistence. Unnecessary external scripts omitted.</p>
-                    </div>
-
-                    <div class="glass-panel p-6 rounded-2xl border border-slate-800">
-                        <div class="w-10 h-10 rounded-xl bg-violet-500/10 text-violet-400 flex items-center justify-center mb-4 text-xl">
-                            <i class="fa-solid fa-palette"></i>
-                        </div>
-                        <h4 class="text-lg font-bold text-white mb-2">Modern Glass UI</h4>
-                        <p class="text-xs text-slate-400 leading-relaxed">Cohesive dark mode interface utilizing sleek blurred backdrops, crisp borders, and vibrant neon status indicators.</p>
-                    </div>
-
-                    <div class="glass-panel p-6 rounded-2xl border border-slate-800">
-                        <div class="w-10 h-10 rounded-xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center mb-4 text-xl">
-                            <i class="fa-solid fa-layer-group"></i>
-                        </div>
-                        <h4 class="text-lg font-bold text-white mb-2">Multi-Platform</h4>
-                        <p class="text-xs text-slate-400 leading-relaxed">Deployable across web browsers or native desktop builds utilizing lightweight Electron / Tauri runtimes.</p>
-                    </div>
+                <div class="pt-4 border-t border-slate-800/60 flex items-center space-x-3">
+                    <button onclick="alert('Business Suite is running on secure Netlify deployment.')" class="w-full py-3 px-4 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold text-sm transition-all flex items-center justify-center space-x-2 border border-slate-700">
+                        <i class="fas fa-external-link-alt text-pink-400"></i>
+                        <span>System Portal</span>
+                    </button>
                 </div>
             </div>
-        </section>
+
+        </div>
     </main>
 
-    <!-- Footer & Contact Section -->
-    <footer id="contact" class="glass-panel border-t border-slate-800/80 mt-16 py-12">
+    <!-- Technical Specs & Ecosystem Overview -->
+    <section id="tech" class="py-16 bg-slate-900/50 border-t border-slate-800/80">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8 pb-8 border-b border-slate-800">
-                
-                <!-- Col 1: Bio -->
-                <div>
-                    <div class="flex items-center space-x-2 mb-3">
-                        <div class="w-8 h-8 rounded-lg bg-gradient-to-tr from-cyan-500 to-violet-600 flex items-center justify-center text-white text-sm font-bold">
-                            <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
-                            </svg>
-                        </div>
-                        <span class="text-lg font-bold text-white tracking-tight">Lasha Developer Studio</span>
-                    </div>
-                    <p class="text-xs text-slate-400 leading-relaxed mb-4">
-                        Building purpose-driven desktop tools and web games for productivity and recreation. Open for collaborations and custom software development.
-                    </p>
-                    <div class="flex space-x-3 text-slate-400 text-sm">
-                        <a href="https://github.com" target="_blank" class="hover:text-cyan-400 transition-colors"><i class="fa-brands fa-github"></i></a>
-                        <a href="https://twitter.com" target="_blank" class="hover:text-cyan-400 transition-colors"><i class="fa-brands fa-x-twitter"></i></a>
-                        <a href="https://discord.com" target="_blank" class="hover:text-cyan-400 transition-colors"><i class="fa-brands fa-discord"></i></a>
-                    </div>
-                </div>
-
-                <!-- Col 2: Platform Badges -->
-                <div>
-                    <h5 class="text-xs font-bold text-slate-200 uppercase tracking-wider mb-3">Supported Platforms</h5>
-                    <div class="space-y-2 text-xs text-slate-400">
-                        <div class="flex items-center gap-2">
-                            <i class="fa-brands fa-chrome text-cyan-400 w-4"></i> Modern Browsers (Chrome, Firefox, Edge, Safari)
-                        </div>
-                        <div class="flex items-center gap-2">
-                            <i class="fa-brands fa-windows text-blue-400 w-4"></i> Windows 10 / 11 64-Bit (.exe)
-                        </div>
-                        <div class="flex items-center gap-2">
-                            <i class="fa-brands fa-apple text-slate-300 w-4"></i> macOS (Universal Build Support)
-                        </div>
-                        <div class="flex items-center gap-2">
-                            <i class="fa-solid fa-mobile-screen text-emerald-400 w-4"></i> Mobile Progressive Web Apps (PWA)
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Col 3: Quick Feedback -->
-                <div>
-                    <h5 class="text-xs font-bold text-slate-200 uppercase tracking-wider mb-3">Send Direct Feedback</h5>
-                    <form onsubmit="handleFeedback(event)" class="space-y-2">
-                        <input type="email" required placeholder="Your email..." class="w-full px-3 py-2 bg-slate-950/80 border border-slate-700/60 rounded-lg text-xs text-white placeholder-slate-500 focus:outline-none focus:border-cyan-500">
-                        <textarea required rows="2" placeholder="Suggestions or bug reports..." class="w-full px-3 py-2 bg-slate-950/80 border border-slate-700/60 rounded-lg text-xs text-white placeholder-slate-500 focus:outline-none focus:border-cyan-500"></textarea>
-                        <button type="submit" class="w-full py-2 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-slate-950 font-bold text-xs rounded-lg transition-all">Submit Feedback</button>
-                    </form>
-                </div>
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-extrabold text-white">Technology Stack & Architecture</h2>
+                <p class="text-slate-400 text-sm mt-2">Engineered with low overhead, maximum portability, and responsive design.</p>
             </div>
 
-            <div class="flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 gap-4">
-                <p>&copy; 2026 Lasha Hub. All rights reserved.</p>
-                <div class="flex space-x-4">
-                    <a href="#" class="hover:text-slate-400">Privacy Policy</a>
-                    <a href="#" class="hover:text-slate-400">Terms of Service</a>
-                    <a href="#" class="hover:text-slate-400">Open Source Licenses</a>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                <div class="glass-panel p-5 rounded-xl text-center">
+                    <div class="text-cyan-400 text-2xl mb-2"><i class="fab fa-node-js"></i></div>
+                    <h4 class="font-bold text-white text-sm">Electron & Node.js</h4>
+                    <p class="text-slate-400 text-xs mt-1">Desktop App Runtime</p>
                 </div>
+                <div class="glass-panel p-5 rounded-xl text-center">
+                    <div class="text-emerald-400 text-2xl mb-2"><i class="fas fa-fire"></i></div>
+                    <h4 class="font-bold text-white text-sm">Firebase Backend</h4>
+                    <p class="text-slate-400 text-xs mt-1">Realtime Database Sync</p>
+                </div>
+                <div class="glass-panel p-5 rounded-xl text-center">
+                    <div class="text-purple-400 text-2xl mb-2"><i class="fab fa-react"></i></div>
+                    <h4 class="font-bold text-white text-sm">React & Vite</h4>
+                    <p class="text-slate-400 text-xs mt-1">High-Speed Frontend</p>
+                </div>
+                <div class="glass-panel p-5 rounded-xl text-center">
+                    <div class="text-pink-400 text-2xl mb-2"><i class="fas fa-cloud"></i></div>
+                    <h4 class="font-bold text-white text-sm">Cloud Hosting</h4>
+                    <p class="text-slate-400 text-xs mt-1">GitHub Pages & Netlify</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact" class="bg-slate-950 border-t border-slate-800/80 py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6">
+            <div class="flex items-center space-x-3">
+                <div class="w-8 h-8 rounded-lg bg-cyan-500/20 flex items-center justify-center text-cyan-400 text-sm">
+                    <i class="fas fa-code"></i>
+                </div>
+                <span class="text-sm text-slate-400">© 2026 <strong>Lasha Hub</strong>. Created by Lashara Hettiarachchi.</span>
+            </div>
+            <div class="flex space-x-6 text-slate-400 text-sm">
+                <a href="https://github.com/lasharahettiarachchi-creator" target="_blank" class="hover:text-cyan-400 transition-colors"><i class="fab fa-github mr-1"></i> GitHub</a>
             </div>
         </div>
     </footer>
 
-    <!-- ================= MODALS & INTERACTIVE LIVE DEMOS ================= -->
-
-    <!-- MODAL 1: Focus Timer Live Interactive Demo -->
-    <div id="focusModal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 bg-black/80 backdrop-blur-md">
-        <div class="glass-modal rounded-3xl w-full max-w-lg p-6 sm:p-8 relative border border-cyan-500/30 shadow-2xl animate-fade-in">
-            <!-- Close Button -->
-            <button onclick="closeFocusModal()" class="absolute top-5 right-5 text-slate-400 hover:text-white transition-colors">
-                <i class="fa-solid fa-xmark text-xl"></i>
+    <!-- MODAL 1: Focus Guardian Timer Interactive Playable App -->
+    <div id="focusModal" class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-md hidden flex items-center justify-center p-4">
+        <div class="bg-slate-900 border border-slate-800 rounded-3xl w-full max-w-md p-6 sm:p-8 relative shadow-2xl">
+            <button onclick="closeFocusModal()" class="absolute top-5 right-5 text-slate-400 hover:text-white text-lg">
+                <i class="fas fa-times"></i>
             </button>
-
-            <!-- App Title Bar -->
-            <div class="flex items-center space-x-3 mb-6">
-                <div class="w-10 h-10 rounded-xl bg-cyan-500/20 text-cyan-400 flex items-center justify-center text-xl">
-                    <i class="fa-solid fa-hourglass-half"></i>
+            <div class="text-center">
+                <div class="inline-flex p-3 rounded-2xl bg-cyan-500/10 text-cyan-400 mb-3 text-2xl">
+                    <i class="fas fa-hourglass-half"></i>
                 </div>
-                <div>
-                    <h3 class="text-lg font-bold text-white">Focus Timer Suite</h3>
-                    <p class="text-xs text-cyan-400 font-mono">Interactive Web Demo</p>
-                </div>
-            </div>
+                <h3 class="text-2xl font-bold text-white">Focus Guardian</h3>
+                <p class="text-slate-400 text-xs mt-1">15-Min Focus Cycle Demo</p>
 
-            <!-- Timer Mode Selector -->
-            <div class="flex bg-slate-950/80 p-1 rounded-xl border border-slate-800 mb-8 gap-1">
-                <button onclick="setTimerMode('focus')" id="modeFocusBtn" class="flex-1 py-1.5 text-xs font-semibold rounded-lg bg-cyan-500 text-slate-950 transition-all">15m Focus</button>
-                <button onclick="setTimerMode('shortBreak')" id="modeShortBtn" class="flex-1 py-1.5 text-xs font-semibold rounded-lg text-slate-400 hover:text-white transition-all">5m Short Break</button>
-                <button onclick="setTimerMode('longBreak')" id="modeLongBtn" class="flex-1 py-1.5 text-xs font-semibold rounded-lg text-slate-400 hover:text-white transition-all">30m Long Break</button>
-            </div>
-
-            <!-- Display Circle -->
-            <div class="flex flex-col items-center justify-center my-6">
-                <div class="relative w-56 h-56 rounded-full glass-panel border-4 border-cyan-500/30 flex flex-col items-center justify-center shadow-inner">
-                    <div class="text-5xl font-mono font-extrabold text-white tracking-wider" id="timerDisplay">15:00</div>
-                    <div class="text-xs text-slate-400 font-medium mt-2" id="timerLabel">Deep Work Sprint</div>
-                </div>
-            </div>
-
-            <!-- Timer Controls -->
-            <div class="flex items-center justify-center space-x-4 mb-6">
-                <button id="startTimerBtn" onclick="toggleTimer()" class="px-8 py-3 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-slate-950 font-bold text-sm shadow-lg shadow-cyan-500/20 transition-all flex items-center gap-2">
-                    <i class="fa-solid fa-play" id="playIcon"></i> <span id="startBtnText">Start Focus</span>
-                </button>
-                <button onclick="resetTimer()" class="p-3 rounded-xl glass-panel hover:bg-slate-800 text-slate-300 transition-all border border-slate-700/60" title="Reset Timer">
-                    <i class="fa-solid fa-rotate-left text-sm"></i>
-                </button>
-                <button id="ambientAudioBtn" onclick="toggleAmbientAudio()" class="p-3 rounded-xl glass-panel hover:bg-slate-800 text-slate-400 transition-all border border-slate-700/60" title="Toggle Brown Noise Ambient Sound">
-                    <i class="fa-solid fa-headphones text-sm"></i>
-                </button>
-            </div>
-
-            <!-- Stats Bar -->
-            <div class="pt-4 border-t border-slate-800/80 flex justify-between items-center text-xs text-slate-400">
-                <div>Completed Today: <span class="text-cyan-400 font-bold" id="completedSessions">3 Sprints</span></div>
-                <div>Interval: <span class="text-slate-200">15m / 5m / 30m</span></div>
-            </div>
-        </div>
-    </div>
-
-
-    <!-- MODAL 2: Neon Snake Live Interactive Game -->
-    <div id="snakeModal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 bg-black/85 backdrop-blur-md">
-        <div class="glass-modal rounded-3xl w-full max-w-xl p-5 sm:p-6 relative border border-emerald-500/30 shadow-2xl flex flex-col items-center">
-            
-            <!-- Close Button -->
-            <button onclick="closeSnakeModal()" class="absolute top-5 right-5 text-slate-400 hover:text-white transition-colors">
-                <i class="fa-solid fa-xmark text-xl"></i>
-            </button>
-
-            <!-- App Title Bar -->
-            <div class="w-full flex items-center justify-between mb-4">
-                <div class="flex items-center space-x-3">
-                    <div class="w-9 h-9 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-lg">
-                        <i class="fa-solid fa-gamepad"></i>
-                    </div>
-                    <div>
-                        <h3 class="text-base font-bold text-white">Neon Snake Arcade</h3>
-                        <p class="text-xs text-emerald-400 font-mono">Live Browser Canvas</p>
-                    </div>
+                <div class="my-8 py-6 rounded-2xl bg-slate-950/80 border border-slate-800/80">
+                    <span id="focusTimeDisplay" class="text-5xl font-mono font-extrabold text-cyan-400 tracking-wider">15:00</span>
+                    <div id="focusStateLabel" class="text-xs font-semibold text-slate-400 uppercase tracking-widest mt-2">Work Interval (1 / 4)</div>
                 </div>
 
-                <!-- Scores -->
-                <div class="flex items-center gap-4 font-mono text-xs">
-                    <div class="bg-slate-950 px-3 py-1.5 rounded-lg border border-slate-800">
-                        Score: <span class="text-emerald-400 font-bold" id="snakeScore">0</span>
-                    </div>
-                    <div class="bg-slate-950 px-3 py-1.5 rounded-lg border border-slate-800">
-                        High: <span class="text-cyan-400 font-bold" id="snakeHighScore">0</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Game Canvas Container -->
-            <div class="relative w-full aspect-square max-w-[380px] mb-4 flex items-center justify-center">
-                <canvas id="snakeCanvas" width="360" height="360" class="rounded-2xl border border-slate-800 w-full h-full"></canvas>
-                
-                <!-- Game Over / Start Overlay -->
-                <div id="snakeOverlay" class="absolute inset-0 bg-slate-950/85 backdrop-blur-sm rounded-2xl flex flex-col items-center justify-center p-6 text-center">
-                    <div class="w-12 h-12 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-2xl mb-3">
-                        <i class="fa-solid fa-trophy"></i>
-                    </div>
-                    <h4 class="text-xl font-bold text-white mb-1" id="snakeOverlayTitle">Neon Snake</h4>
-                    <p class="text-xs text-slate-400 mb-6" id="snakeOverlayDesc">Use Arrow keys or Touch buttons to steer.</p>
-                    <button onclick="startSnakeGame()" class="px-6 py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-xs flex items-center gap-2 shadow-lg shadow-emerald-500/20 transition-all">
-                        <i class="fa-solid fa-play"></i> Start Playing
+                <div class="flex items-center justify-center space-x-4 mb-6">
+                    <button id="focusStartBtn" onclick="toggleFocusTimer()" class="py-3 px-8 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold text-sm transition-all shadow-lg glow-cyan">
+                        Start Session
+                    </button>
+                    <button onclick="resetFocusTimer()" class="py-3 px-4 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold text-sm transition-all">
+                        Reset
                     </button>
                 </div>
-            </div>
 
-            <!-- Touch Controls (For Mobile Devices) -->
-            <div class="grid grid-cols-3 gap-2 w-full max-w-[200px] mb-2 sm:hidden">
-                <div></div>
-                <button onclick="changeSnakeDir('UP')" class="p-3 bg-slate-800 active:bg-cyan-500 text-white rounded-lg flex items-center justify-center"><i class="fa-solid fa-chevron-up"></i></button>
-                <div></div>
-                <button onclick="changeSnakeDir('LEFT')" class="p-3 bg-slate-800 active:bg-cyan-500 text-white rounded-lg flex items-center justify-center"><i class="fa-solid fa-chevron-left"></i></button>
-                <button onclick="changeSnakeDir('DOWN')" class="p-3 bg-slate-800 active:bg-cyan-500 text-white rounded-lg flex items-center justify-center"><i class="fa-solid fa-chevron-down"></i></button>
-                <button onclick="changeSnakeDir('RIGHT')" class="p-3 bg-slate-800 active:bg-cyan-500 text-white rounded-lg flex items-center justify-center"><i class="fa-solid fa-chevron-right"></i></button>
-            </div>
-
-            <div class="text-[11px] text-slate-500 font-mono text-center">Controls: Arrow Keys or W/A/S/D</div>
-        </div>
-    </div>
-
-
-    <!-- MODAL 3: Snake Room Multiplayer Generator Modal -->
-    <div id="snakeRoomModal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 bg-black/80 backdrop-blur-md">
-        <div class="glass-modal rounded-3xl w-full max-w-md p-6 relative border border-cyan-500/30 shadow-2xl">
-            <button onclick="closeSnakeRoomModal()" class="absolute top-5 right-5 text-slate-400 hover:text-white transition-colors">
-                <i class="fa-solid fa-xmark text-xl"></i>
-            </button>
-
-            <div class="flex items-center space-x-3 mb-6">
-                <div class="w-10 h-10 rounded-xl bg-cyan-500/20 text-cyan-400 flex items-center justify-center text-xl">
-                    <i class="fa-solid fa-users"></i>
-                </div>
-                <div>
-                    <h3 class="text-lg font-bold text-white">Multiplayer Room Host</h3>
-                    <p class="text-xs text-cyan-400 font-mono">Snake Lobby System</p>
-                </div>
-            </div>
-
-            <p class="text-xs text-slate-400 mb-6 leading-relaxed">
-                Generate a custom room code to play with friends online or join an active match server.
-            </p>
-
-            <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 mb-6 flex items-center justify-between">
-                <div>
-                    <div class="text-[10px] uppercase text-slate-500 font-mono">Room Passcode</div>
-                    <div class="text-xl font-mono font-bold text-cyan-400 tracking-wider" id="generatedRoomCode">NX-8942</div>
-                </div>
-                <button onclick="generateNewRoomCode()" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-mono transition-all">
-                    <i class="fa-solid fa-arrows-rotate mr-1"></i> Refresh
-                </button>
-            </div>
-
-            <div class="space-y-3">
-                <button onclick="copyRoomCode()" class="w-full py-2.5 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold text-xs flex items-center justify-center gap-2 transition-all">
-                    <i class="fa-solid fa-copy"></i> Copy Lobby Link
-                </button>
-                <button onclick="closeSnakeRoomModal(); openSnakeModal();" class="w-full py-2.5 rounded-xl glass-panel hover:bg-slate-800 text-white font-semibold text-xs flex items-center justify-center gap-2 border border-slate-700/60 transition-all">
-                    <i class="fa-solid fa-play text-emerald-400"></i> Enter Arena Solo Mode
-                </button>
+                <!-- Direct MEGA link in popup modal -->
+                <a href="https://mega.nz/file/PuRRURhR#drITwRqTHazARAX9xVqcMbANwZKFdGfctmKbjLGfgLk" target="_blank" class="text-xs text-cyan-400 hover:underline inline-flex items-center space-x-1">
+                    <i class="fab fa-windows"></i>
+                    <span>Download Desktop Installer (.exe) via MEGA</span>
+                </a>
             </div>
         </div>
     </div>
 
-
-    <!-- MODAL 4: Documentation / Info Popup -->
-    <div id="docsModal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 bg-black/80 backdrop-blur-md">
-        <div class="glass-modal rounded-3xl w-full max-w-lg p-6 sm:p-8 relative border border-slate-700 shadow-2xl">
-            <button onclick="closeDocsModal()" class="absolute top-5 right-5 text-slate-400 hover:text-white transition-colors">
-                <i class="fa-solid fa-xmark text-xl"></i>
+    <!-- MODAL 2: Neon Snake Interactive Game -->
+    <div id="snakeModal" class="fixed inset-0 z-50 bg-slate-950/90 backdrop-blur-md hidden flex items-center justify-center p-4">
+        <div class="bg-slate-900 border border-slate-800 rounded-3xl w-full max-w-lg p-6 relative shadow-2xl">
+            <button onclick="closeSnakeModal()" class="absolute top-5 right-5 text-slate-400 hover:text-white text-lg z-10">
+                <i class="fas fa-times"></i>
             </button>
 
-            <h3 class="text-xl font-bold text-white mb-2" id="docsModalTitle">Documentation</h3>
-            <p class="text-xs text-slate-400 mb-6 leading-relaxed" id="docsModalContent">App developer details and configurations.</p>
-
-            <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 text-xs font-mono text-slate-300 space-y-2 mb-6">
-                <p class="text-cyan-400">// Sample Configuration Overview</p>
-                <p>Platform: Cross-platform Electron/Web</p>
-                <p>Hotkeys: Ctrl + Shift + R (Toggle Record)</p>
-                <p>Audio Format: 48kHz Stereo WAV / MP3</p>
-                <p>Storage Path: ~/Documents/NexusAudioLogs/</p>
+            <div class="text-center mb-4">
+                <h3 class="text-2xl font-bold text-white flex items-center justify-center space-x-2">
+                    <i class="fas fa-gamepad text-emerald-400"></i>
+                    <span>Neon Snake Arcade</span>
+                </h3>
+                <p class="text-slate-400 text-xs">Use Arrow Keys or WASD to navigate</p>
             </div>
 
-            <button onclick="closeDocsModal()" class="w-full py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-bold text-xs transition-all">
-                Close Documentation
-            </button>
+            <div class="relative flex justify-center items-center">
+                <canvas id="snakeCanvas" width="360" height="360" class="bg-slate-950 border-2 border-emerald-500/30 rounded-2xl shadow-inner"></canvas>
+            </div>
+
+            <div class="flex items-center justify-between mt-4 px-2">
+                <div class="text-sm text-slate-300 font-mono">Score: <span id="snakeScore" class="text-emerald-400 font-bold">0</span></div>
+                <button onclick="startSnakeGame()" class="py-2 px-6 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-xs transition-all glow-green">
+                    Restart Game
+                </button>
+            </div>
         </div>
     </div>
-
-
-    <!-- Toast Notification Popup -->
-    <div id="toast" class="fixed bottom-6 right-6 z-50 transform translate-y-20 opacity-0 transition-all duration-300 glass-panel px-4 py-3 rounded-xl border border-cyan-500/40 text-xs font-medium text-cyan-300 flex items-center gap-3 shadow-xl pointer-events-none">
-        <i class="fa-solid fa-circle-check text-cyan-400 text-base"></i>
-        <span id="toastMessage">Action completed successfully.</span>
-    </div>
-
 
     <!-- JavaScript Logic -->
     <script>
-        /* ================= CATEGORY FILTER & SEARCH ================= */
-        const filterBtns = document.querySelectorAll('.filter-btn');
-        const appCards = document.querySelectorAll('.app-card');
-        const searchInput = document.getElementById('searchInput');
-        const noResults = document.getElementById('noResults');
-
-        let currentCategory = 'all';
-        let searchQuery = '';
-
-        filterBtns.forEach(btn => {
-            btn.addEventListener('click', () => {
-                filterBtns.forEach(b => {
-                    b.classList.remove('bg-cyan-500', 'text-slate-950');
-                    b.classList.add('text-slate-400');
-                });
-                btn.classList.add('bg-cyan-500', 'text-slate-950');
-                btn.classList.remove('text-slate-400');
-
-                currentCategory = btn.getAttribute('data-category');
-                filterApps();
+        // Category Filter
+        function setCategory(cat) {
+            document.querySelectorAll('.cat-btn').forEach(btn => {
+                btn.classList.remove('bg-cyan-500', 'text-slate-950', 'active');
+                btn.classList.add('text-slate-400');
             });
-        });
+            event.target.classList.add('bg-cyan-500', 'text-slate-950', 'active');
+            event.target.classList.remove('text-slate-400');
 
-        searchInput.addEventListener('input', (e) => {
-            searchQuery = e.target.value.toLowerCase().trim();
-            filterApps();
-        });
-
-        function filterApps() {
+            const cards = document.querySelectorAll('.app-card');
             let visibleCount = 0;
-            appCards.forEach(card => {
-                const category = card.getAttribute('data-category');
-                const keywords = card.getAttribute('data-keywords').toLowerCase();
-                const title = card.querySelector('h3').textContent.toLowerCase();
-
-                const matchesCategory = (currentCategory === 'all') || category.includes(currentCategory);
-                const matchesSearch = !searchQuery || keywords.includes(searchQuery) || title.includes(searchQuery);
-
-                if (matchesCategory && matchesSearch) {
+            cards.forEach(card => {
+                if (cat === 'all' || card.dataset.category === cat) {
                     card.style.display = 'flex';
                     visibleCount++;
                 } else {
                     card.style.display = 'none';
                 }
             });
-
-            if (visibleCount === 0) {
-                noResults.classList.remove('hidden');
-            } else {
-                noResults.classList.add('hidden');
-            }
+            document.getElementById('appCount').innerText = visibleCount;
         }
 
-
-        /* ================= TOAST NOTIFICATION SYSTEM ================= */
-        function showToast(message) {
-            const toast = document.getElementById('toast');
-            const toastMessage = document.getElementById('toastMessage');
-            toastMessage.textContent = message;
-
-            toast.classList.remove('translate-y-20', 'opacity-0');
-            toast.classList.add('translate-y-0', 'opacity-100');
-
-            setTimeout(() => {
-                toast.classList.add('translate-y-20', 'opacity-0');
-                toast.classList.remove('translate-y-0', 'opacity-100');
-            }, 3200);
+        // Search Filter
+        function filterApps() {
+            const query = document.getElementById('searchInput').value.toLowerCase();
+            const cards = document.querySelectorAll('.app-card');
+            let visibleCount = 0;
+            cards.forEach(card => {
+                const name = card.dataset.name.toLowerCase();
+                const text = card.innerText.toLowerCase();
+                if (name.includes(query) || text.includes(query)) {
+                    card.style.display = 'flex';
+                    visibleCount++;
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+            document.getElementById('appCount').innerText = visibleCount;
         }
 
-
-        /* ================= DOCS MODAL LOGIC ================= */
-        function openDocsModal(title, content) {
-            document.getElementById('docsModalTitle').textContent = title;
-            document.getElementById('docsModalContent').textContent = content;
-            document.getElementById('docsModal').classList.remove('hidden');
-        }
-
-        function closeDocsModal() {
-            document.getElementById('docsModal').classList.add('hidden');
-        }
-
-
-        /* ================= FOCUS TIMER APP LOGIC ================= */
-        let timerInterval = null;
-        let timerSeconds = 15 * 60; // Default 15 minutes
-        let isTimerRunning = false;
-        let timerMode = 'focus'; // 'focus', 'shortBreak', 'longBreak'
-        let completedSessionsCount = 3;
-        let isAudioPlaying = false;
-        let audioSynthContext = null;
+        // --- Focus Guardian Timer Script ---
+        let focusMinutes = 15;
+        let focusSeconds = 0;
+        let focusInterval = null;
+        let isFocusRunning = false;
 
         function openFocusModal() {
             document.getElementById('focusModal').classList.remove('hidden');
         }
-
         function closeFocusModal() {
             document.getElementById('focusModal').classList.add('hidden');
-            pauseTimer();
+            clearInterval(focusInterval);
+            isFocusRunning = false;
+            document.getElementById('focusStartBtn').innerText = 'Start Session';
         }
 
-        function setTimerMode(mode) {
-            pauseTimer();
-            timerMode = mode;
-
-            const modeFocusBtn = document.getElementById('modeFocusBtn');
-            const modeShortBtn = document.getElementById('modeShortBtn');
-            const modeLongBtn = document.getElementById('modeLongBtn');
-
-            // Reset tab styles
-            [modeFocusBtn, modeShortBtn, modeLongBtn].forEach(b => {
-                b.className = "flex-1 py-1.5 text-xs font-semibold rounded-lg text-slate-400 hover:text-white transition-all";
-            });
-
-            if (mode === 'focus') {
-                timerSeconds = 15 * 60;
-                modeFocusBtn.className = "flex-1 py-1.5 text-xs font-semibold rounded-lg bg-cyan-500 text-slate-950 transition-all";
-                document.getElementById('timerLabel').textContent = "Deep Work Sprint";
-                document.getElementById('startBtnText').textContent = "Start Focus";
-            } else if (mode === 'shortBreak') {
-                timerSeconds = 5 * 60;
-                modeShortBtn.className = "flex-1 py-1.5 text-xs font-semibold rounded-lg bg-emerald-500 text-slate-950 transition-all";
-                document.getElementById('timerLabel').textContent = "Short Break Rest";
-                document.getElementById('startBtnText').textContent = "Start Break";
-            } else if (mode === 'longBreak') {
-                timerSeconds = 30 * 60;
-                modeLongBtn.className = "flex-1 py-1.5 text-xs font-semibold rounded-lg bg-violet-500 text-slate-950 transition-all";
-                document.getElementById('timerLabel').textContent = "Extended Recovery";
-                document.getElementById('startBtnText').textContent = "Start Long Rest";
-            }
-
-            updateTimerDisplay();
+        function updateFocusDisplay() {
+            const m = String(focusMinutes).padStart(2, '0');
+            const s = String(focusSeconds).padStart(2, '0');
+            document.getElementById('focusTimeDisplay').innerText = `${m}:${s}`;
         }
 
-        function updateTimerDisplay() {
-            const mins = Math.floor(timerSeconds / 60);
-            const secs = timerSeconds % 60;
-            const formatted = `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
-            document.getElementById('timerDisplay').textContent = formatted;
-        }
-
-        function toggleTimer() {
-            if (isTimerRunning) {
-                pauseTimer();
-            } else {
-                startTimer();
-            }
-        }
-
-        function startTimer() {
-            if (isTimerRunning) return;
-            isTimerRunning = true;
-            document.getElementById('playIcon').className = "fa-solid fa-pause";
-            document.getElementById('startBtnText').textContent = "Pause";
-
-            timerInterval = setInterval(() => {
-                if (timerSeconds > 0) {
-                    timerSeconds--;
-                    updateTimerDisplay();
-                } else {
-                    pauseTimer();
-                    playTimerBeep();
-                    if (timerMode === 'focus') {
-                        completedSessionsCount++;
-                        document.getElementById('completedSessions').textContent = `${completedSessionsCount} Sprints`;
-                        showToast('Focus Sprint Finished! Time for a short break.');
+        function toggleFocusTimer() {
+            const btn = document.getElementById('focusStartBtn');
+            if (!isFocusRunning) {
+                isFocusRunning = true;
+                btn.innerText = 'Pause';
+                focusInterval = setInterval(() => {
+                    if (focusSeconds === 0) {
+                        if (focusMinutes === 0) {
+                            clearInterval(focusInterval);
+                            alert('Focus cycle completed! Time for a short break.');
+                            resetFocusTimer();
+                            return;
+                        }
+                        focusMinutes--;
+                        focusSeconds = 59;
                     } else {
-                        showToast('Break Time Over! Ready for another focus session?');
+                        focusSeconds--;
                     }
-                }
-            }, 1000);
-        }
-
-        function pauseTimer() {
-            isTimerRunning = false;
-            clearInterval(timerInterval);
-            document.getElementById('playIcon').className = "fa-solid fa-play";
-            document.getElementById('startBtnText').textContent = isTimerRunning ? "Pause" : "Resume";
-            if (timerSeconds === 15 * 60 || timerSeconds === 5 * 60 || timerSeconds === 30 * 60) {
-                document.getElementById('startBtnText').textContent = "Start " + (timerMode === 'focus' ? 'Focus' : 'Break');
-            }
-        }
-
-        function resetTimer() {
-            setTimerMode(timerMode);
-        }
-
-        /* Synthesized Web Audio Alerts */
-        function playTimerBeep() {
-            try {
-                const ctx = new (window.AudioContext || window.webkitAudioContext)();
-                const osc = ctx.createOscillator();
-                const gain = ctx.createGain();
-                osc.type = 'sine';
-                osc.frequency.setValueAtTime(587.33, ctx.currentTime); // D5 tone
-                gain.gain.setValueAtTime(0.1, ctx.currentTime);
-                osc.connect(gain);
-                gain.connect(ctx.destination);
-                osc.start();
-                osc.stop(ctx.currentTime + 0.4);
-            } catch (e) {
-                console.log('Audio Context restricted.');
-            }
-        }
-
-        function toggleAmbientAudio() {
-            isAudioPlaying = !isAudioPlaying;
-            const btn = document.getElementById('ambientAudioBtn');
-            if (isAudioPlaying) {
-                btn.classList.add('bg-cyan-500/20', 'text-cyan-400', 'border-cyan-500');
-                showToast('Ambient brown noise audio active');
+                    updateFocusDisplay();
+                }, 1000);
             } else {
-                btn.classList.remove('bg-cyan-500/20', 'text-cyan-400', 'border-cyan-500');
-                showToast('Ambient audio muted');
+                clearInterval(focusInterval);
+                isFocusRunning = false;
+                btn.innerText = 'Resume';
             }
         }
 
+        function resetFocusTimer() {
+            clearInterval(focusInterval);
+            isFocusRunning = false;
+            focusMinutes = 15;
+            focusSeconds = 0;
+            updateFocusDisplay();
+            document.getElementById('focusStartBtn').innerText = 'Start Session';
+        }
 
-        /* ================= NEON SNAKE GAME LOGIC ================= */
-        const canvas = document.getElementById('snakeCanvas');
-        const ctx = canvas.getContext('2d');
-        const gridSize = 18;
-        const tileCount = canvas.width / gridSize;
-
-        let snake = [{ x: 10, y: 10 }, { x: 10, y: 11 }, { x: 10, y: 12 }];
-        let food = { x: 5, y: 5 };
-        let dx = 0;
-        let dy = -1;
+        // --- Neon Snake Arcade Game Script ---
+        let snakeCanvas, ctx;
+        let snake = [];
+        let food = {};
+        let dx = 20, dy = 0;
         let snakeScore = 0;
-        let snakeHighScore = 0;
-        let gameLoopInterval = null;
-        let isGameRunning = false;
+        let gameLoop = null;
 
         function openSnakeModal() {
             document.getElementById('snakeModal').classList.remove('hidden');
-            drawSnakeBoard();
+            snakeCanvas = document.getElementById('snakeCanvas');
+            ctx = snakeCanvas.getContext('2d');
+            startSnakeGame();
         }
 
         function closeSnakeModal() {
             document.getElementById('snakeModal').classList.add('hidden');
-            stopSnakeGame();
-        }
-
-        function openSnakeRoomModal() {
-            generateNewRoomCode();
-            document.getElementById('snakeRoomModal').classList.remove('hidden');
-        }
-
-        function closeSnakeRoomModal() {
-            document.getElementById('snakeRoomModal').classList.add('hidden');
-        }
-
-        function generateNewRoomCode() {
-            const randomCode = 'NX-' + Math.floor(1000 + Math.random() * 9000);
-            document.getElementById('generatedRoomCode').textContent = randomCode;
-        }
-
-        function copyRoomCode() {
-            const code = document.getElementById('generatedRoomCode').textContent;
-            navigator.clipboard.writeText(code);
-            showToast(`Room code ${code} copied to clipboard!`);
+            clearInterval(gameLoop);
         }
 
         function startSnakeGame() {
-            document.getElementById('snakeOverlay').classList.add('hidden');
-            snake = [{ x: 10, y: 10 }, { x: 10, y: 11 }, { x: 10, y: 12 }];
-            dx = 0;
-            dy = -1;
+            snake = [{x: 160, y: 160}, {x: 140, y: 160}, {x: 120, y: 160}];
+            dx = 20;
+            dy = 0;
             snakeScore = 0;
-            document.getElementById('snakeScore').textContent = snakeScore;
+            document.getElementById('snakeScore').innerText = snakeScore;
             spawnFood();
-            
-            if (gameLoopInterval) clearInterval(gameLoopInterval);
-            isGameRunning = true;
-            gameLoopInterval = setInterval(updateSnake, 100);
-        }
-
-        function stopSnakeGame() {
-            isGameRunning = false;
-            if (gameLoopInterval) clearInterval(gameLoopInterval);
+            if (gameLoop) clearInterval(gameLoop);
+            gameLoop = setInterval(updateSnake, 120);
         }
 
         function spawnFood() {
             food = {
-                x: Math.floor(Math.random() * tileCount),
-                y: Math.floor(Math.random() * tileCount)
+                x: Math.floor(Math.random() * 18) * 20,
+                y: Math.floor(Math.random() * 18) * 20
             };
         }
 
         function updateSnake() {
-            if (!isGameRunning) return;
+            const head = {x: snake[0].x + dx, y: snake[0].y + dy};
 
-            const head = { x: snake[0].x + dx, y: snake[0].y + dy };
-
-            // Wall Collision
-            if (head.x < 0 || head.x >= tileCount || head.y < 0 || head.y >= tileCount) {
-                gameOverSnake();
+            // Collision Detection
+            if (head.x < 0 || head.x >= 360 || head.y < 0 || head.y >= 360 || snake.some(segment => segment.x === head.x && segment.y === head.y)) {
+                clearInterval(gameLoop);
+                alert('Game Over! Your Score: ' + snakeScore);
                 return;
-            }
-
-            // Self Collision
-            for (let i = 0; i < snake.length; i++) {
-                if (snake[i].x === head.x && snake[i].y === head.y) {
-                    gameOverSnake();
-                    return;
-                }
             }
 
             snake.unshift(head);
 
-            // Eat Food
             if (head.x === food.x && head.y === food.y) {
                 snakeScore += 10;
-                document.getElementById('snakeScore').textContent = snakeScore;
-                if (snakeScore > snakeHighScore) {
-                    snakeHighScore = snakeScore;
-                    document.getElementById('snakeHighScore').textContent = snakeHighScore;
-                }
-                playSnakeEatSound();
+                document.getElementById('snakeScore').innerText = snakeScore;
                 spawnFood();
             } else {
                 snake.pop();
             }
 
-            drawSnakeBoard();
+            drawSnake();
         }
 
-        function drawSnakeBoard() {
-            // Clear Background
-            ctx.fillStyle = '#080d1a';
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
+        function drawSnake() {
+            ctx.fillStyle = '#030712';
+            ctx.fillRect(0, 0, 360, 360);
 
-            // Draw subtle grid lines
-            ctx.strokeStyle = 'rgba(255, 255, 255, 0.03)';
-            for (let i = 0; i < canvas.width; i += gridSize) {
-                ctx.beginPath();
-                ctx.moveTo(i, 0);
-                ctx.lineTo(i, canvas.height);
-                ctx.stroke();
-                ctx.beginPath();
-                ctx.moveTo(0, i);
-                ctx.lineTo(canvas.width, i);
-                ctx.stroke();
-            }
-
-            // Draw Food (Glowing Pink Circle)
-            ctx.shadowBlur = 12;
-            ctx.shadowColor = '#ec4899';
+            // Draw Food
             ctx.fillStyle = '#ec4899';
-            ctx.beginPath();
-            ctx.arc(food.x * gridSize + gridSize / 2, food.y * gridSize + gridSize / 2, gridSize / 2 - 2, 0, Math.PI * 2);
-            ctx.fill();
-
-            // Draw Snake (Glowing Neon Emerald)
+            ctx.shadowColor = '#ec4899';
             ctx.shadowBlur = 10;
-            ctx.shadowColor = '#10b981';
-            snake.forEach((part, index) => {
-                ctx.fillStyle = index === 0 ? '#34d399' : '#10b981';
-                ctx.fillRect(part.x * gridSize + 1, part.y * gridSize + 1, gridSize - 2, gridSize - 2);
+            ctx.fillRect(food.x + 2, food.y + 2, 16, 16);
+
+            // Draw Snake
+            snake.forEach((segment, index) => {
+                ctx.fillStyle = index === 0 ? '#10b981' : '#34d399';
+                ctx.shadowColor = '#10b981';
+                ctx.shadowBlur = index === 0 ? 12 : 4;
+                ctx.fillRect(segment.x + 1, segment.y + 1, 18, 18);
             });
-
-            // Reset shadow
-            ctx.shadowBlur = 0;
         }
 
-        function gameOverSnake() {
-            stopSnakeGame();
-            playSnakeDieSound();
-            document.getElementById('snakeOverlayTitle').textContent = "Game Over!";
-            document.getElementById('snakeOverlayDesc').textContent = `Final Score: ${snakeScore} pts`;
-            document.getElementById('snakeOverlay').classList.remove('hidden');
-        }
-
-        function changeSnakeDir(dir) {
-            if (dir === 'UP' && dy === 0) { dx = 0; dy = -1; }
-            if (dir === 'DOWN' && dy === 0) { dx = 0; dy = 1; }
-            if (dir === 'LEFT' && dx === 0) { dx = -1; dy = 0; }
-            if (dir === 'RIGHT' && dx === 0) { dx = 1; dy = 0; }
-        }
-
-        // Keyboard Listener for Snake
-        window.addEventListener('keydown', (e) => {
-            if (!isGameRunning) return;
-            if (e.key === 'ArrowUp' || e.key === 'w' || e.key === 'W') changeSnakeDir('UP');
-            if (e.key === 'ArrowDown' || e.key === 's' || e.key === 'S') changeSnakeDir('DOWN');
-            if (e.key === 'ArrowLeft' || e.key === 'a' || e.key === 'A') changeSnakeDir('LEFT');
-            if (e.key === 'ArrowRight' || e.key === 'd' || e.key === 'D') changeSnakeDir('RIGHT');
+        window.addEventListener('keydown', e => {
+            if (['ArrowUp', 'KeyW'].includes(e.code) && dy === 0) { dx = 0; dy = -20; }
+            if (['ArrowDown', 'KeyS'].includes(e.code) && dy === 0) { dx = 0; dy = 20; }
+            if (['ArrowLeft', 'KeyA'].includes(e.code) && dx === 0) { dx = -20; dy = 0; }
+            if (['ArrowRight', 'KeyD'].includes(e.code) && dx === 0) { dx = 20; dy = 0; }
         });
-
-        function playSnakeEatSound() {
-            try {
-                const ctxAudio = new (window.AudioContext || window.webkitAudioContext)();
-                const osc = ctxAudio.createOscillator();
-                const gain = ctxAudio.createGain();
-                osc.type = 'triangle';
-                osc.frequency.setValueAtTime(440, ctxAudio.currentTime);
-                osc.frequency.exponentialRampToValueAtTime(880, ctxAudio.currentTime + 0.1);
-                gain.gain.setValueAtTime(0.15, ctxAudio.currentTime);
-                osc.connect(gain);
-                gain.connect(ctxAudio.destination);
-                osc.start();
-                osc.stop(ctxAudio.currentTime + 0.1);
-            } catch (e) {}
-        }
-
-        function playSnakeDieSound() {
-            try {
-                const ctxAudio = new (window.AudioContext || window.webkitAudioContext)();
-                const osc = ctxAudio.createOscillator();
-                const gain = ctxAudio.createGain();
-                osc.type = 'sawtooth';
-                osc.frequency.setValueAtTime(220, ctxAudio.currentTime);
-                osc.frequency.linearRampToValueAtTime(110, ctxAudio.currentTime + 0.25);
-                gain.gain.setValueAtTime(0.15, ctxAudio.currentTime);
-                osc.connect(gain);
-                gain.connect(ctxAudio.destination);
-                osc.start();
-                osc.stop(ctxAudio.currentTime + 0.25);
-            } catch (e) {}
-        }
-
-
-        /* ================= FOOTER FEEDBACK FORM ================= */
-        function handleFeedback(e) {
-            e.preventDefault();
-            showToast('Feedback submitted! Thank you for your input.');
-            e.target.reset();
-        }
-
-        // Initialize display state
-        updateTimerDisplay();
     </script>
 </body>
 </html>
